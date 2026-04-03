@@ -28,10 +28,17 @@ Dự án này tập trung vào việc thu thập dữ liệu từ trang web Viet
 
 4. Các bước thực hiện
 4.1. Thu thập Nội dung Văn bản (crawlingTEXT.ipynb)
-Notebook này tập trung vào việc trích xuất tiêu đề, tóm tắt, tác giả và nội dung chính của các bài báo từ VietnamNet.vn.
+Notebook này tập trung vào việc trích xuất thông tin chi tiết của các bài báo từ chuyên mục Thời sự của VietnamNet.vn:
+- **Quy trình:** Sử dụng Selenium để duyệt qua các trang danh sách bài báo (page 0 đến page 9), sau đó truy cập vào từng liên kết bài báo cụ thể.
+- **Dữ liệu trích xuất:** Tiêu đề (h1), Tóm tắt (h2), Tên tác giả (span.name) và toàn bộ nội dung các đoạn văn (p tags) trong bài viết.
+- **Lưu trữ:** Mỗi bài báo được hợp nhất thành một chuỗi văn bản và lưu thành tệp `.txt` riêng biệt trong thư mục `vn_news_corpus/` với định dạng tên `article_XXXXX.txt`.
 
 4.2. Thu thập Hình ảnh Thumbnail (crawlingIMG.ipynb)
-Notebook này tập trung vào việc thu thập các hình ảnh thumbnail liên quan đến các bài báo từ VietnamNet.vn.
+Notebook này tập trung vào việc thu thập các hình ảnh thu nhỏ (thumbnail) đại diện cho các bài báo:
+- **Quy trình:** Sử dụng Selenium để quét qua các trang danh mục và lấy URL của tất cả các hình ảnh thumbnail bằng XPath.
+- **Dữ liệu trích xuất:** Tải hình ảnh trực tiếp từ URL thông qua thư viện `requests`.
+- **Xử lý hình ảnh:** Sử dụng thư viện `PIL (Pillow)` để mở và kiểm tra định dạng; chuyển đổi các hình ảnh hệ màu 'P' sang 'RGB' để đảm bảo tính nhất quán.
+- **Lưu trữ:** Hình ảnh được lưu dưới định dạng `.png` trong thư mục `vn_news_thumbnail/` với định dạng tên `IMG_XXXXX.png`.
 
 5. Hướng dẫn sử dụng
 - Môi trường: Các notebook được thiết kế để chạy trên Google Colab.
