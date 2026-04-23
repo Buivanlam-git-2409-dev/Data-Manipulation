@@ -24,18 +24,22 @@ def ensure_paths(config_dir: str) -> None:
 
 def load_overrides() -> dict:
     overrides = {}
-    for key in [
-        "VNNEWS_DATA_DIR",
-        "VNNEWS_DB_PATH",
-        "VNNEWS_MAX_WORKERS",
-        "VNNEWS_PAGE_TIMEOUT",
-        "VNNEWS_REQUEST_TIMEOUT",
-        "VNNEWS_USE_SELENIUM",
-        "VNNEWS_HEADLESS",
-        "VNNEWS_USER_AGENT",
-    ]:
-        if key in st.secrets:
-            overrides[key] = st.secrets[key]
+    try:
+        for key in [
+            "VNNEWS_DATA_DIR",
+            "VNNEWS_DB_PATH",
+            "VNNEWS_MAX_WORKERS",
+            "VNNEWS_PAGE_TIMEOUT",
+            "VNNEWS_REQUEST_TIMEOUT",
+            "VNNEWS_USE_SELENIUM",
+            "VNNEWS_HEADLESS",
+            "VNNEWS_USER_AGENT",
+        ]:
+            if key in st.secrets:
+                overrides[key] = st.secrets[key]
+    except (FileNotFoundError, KeyError, Exception):
+        # Ignore if secrets are not configured
+        pass
     return overrides
 
 
